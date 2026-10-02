@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HeyPab - Streamer Gaming Hub</title>
+  <meta name="description"
+    content="Halaman streamer HeyPab. Akses langsung dukungan Saweria dengan sekali klik untuk pesan TTS dan alert live stream.">
+
+  <!-- Gaming & UI Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Rajdhani:wght@600;700;800&family=Bangers&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+  <!-- Interactive Cyber Canvas Backdrop -->
+  <canvas id="cyberCanvas" class="cyber-canvas" aria-hidden="true"></canvas>
+
+  <!-- Ambient Light Effects -->
+  <div class="ambient-glow cyan" aria-hidden="true"></div>
+  <div class="ambient-glow violet" aria-hidden="true"></div>
+
+  <!-- INTERACTIVE SPIDER-MAN HANGING OVERLAY -->
+  <div id="spidermanOverlay" class="spiderman-overlay" aria-label="Spider-Man Interaktif">
+    <div id="webRope" class="web-rope"></div>
+    <div id="spideyHanger" class="spidey-hanger" role="button" tabindex="0" title="Klik atau tarik Spider-Man!">
+
+      <!-- Comic Speech Bubble -->
+      <div id="spideyBubble" class="spidey-bubble hidden">
+        <span id="spideyBubbleText">THWIP! Gas Saweria!</span>
+        <div class="bubble-arrow"></div>
+      </div>
+
+      <!-- High-Quality Spider-Man Inverted Hanging SVG -->
+      <svg id="spideySvg" class="spidey-svg" viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="spideyShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+          </filter>
+        </defs>
+
+        <g filter="url(#spideyShadow)">
+          <!-- Web Thread in Hands -->
+          <line x1="80" y1="0" x2="80" y2="40" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+          <line x1="80" y1="0" x2="80" y2="40" stroke="#00f2fe" stroke-width="1.5" opacity="0.8" />
+
+          <!-- Hands gripping the web -->
+          <ellipse cx="73" cy="38" rx="8" ry="6" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
+          <ellipse cx="87" cy="38" rx="8" ry="6" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
+
+          <!-- Forearms (Red with web pattern) -->
+          <path d="M68,40 L60,65 L72,67 L78,41 Z" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
+          <path d="M92,40 L100,65 L88,67 L82,41 Z" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
+
+          <!-- Inverted Legs (Folded in classic acrobatic hang) -->
+          <!-- Left Leg (Blue/Red) -->
+          <path d="M50,70 L30,45 L42,32 L65,58 Z" fill="#1d4ed8" stroke="#1e3a8a" stroke-width="1.5" />
+          <path d="M30,45 L22,25 L34,20 L42,32 Z" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
+
+          <!-- Right Leg (Blue/Red) -->
+          <path d="M110,70 L130,45 L118,32 L95,58 Z" fill="#1d4ed8" stroke="#1e3a8a" stroke-width="1.5" />
+          <path d="M130,45 L138,25 L126,20 L118,32 Z" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
+
+          <!-- Inverted Torso (Hanging downwards) -->
+          <path d="M55,65 Q80,55 105,65 L98,110 Q80,120 62,110 Z" fill="#dc2626" stroke="#991b1b" stroke-width="2" />
+          <!-- Blue Flanks -->
+          <path d="M55,65 L62,110 Q56,90 55,65 Z" fill="#1d4ed8" />
+          <path d="M105,65 L98,110 Q104,90 105,65 Z" fill="#1d4ed8" />
+
+          <!-- Spider Insignia on Chest -->
+          <g transform="translate(80, 85)">
+            <ellipse cx="0" cy="0" rx="3.5" ry="6" fill="#09090b" />
+            <!-- Spider Legs -->
+            <path d="M-3,-2 Q-8,-6 -13,-4 M-3,0 Q-10,-1 -14,5 M-3,2 Q-10,5 -12,11" stroke="#09090b" stroke-width="1.5"
+              fill="none" />
+            <path d="M3,-2 Q8,-6 13,-4 M3,0 Q10,-1 14,5 M3,2 Q10,5 12,11" stroke="#09090b" stroke-width="1.5"
+              fill="none" />
+          </g>
+
+          <!-- Inverted Head / Mask -->
+          <ellipse cx="80" cy="148" rx="26" ry="32" fill="#dc2626" stroke="#991b1b" stroke-width="2" />
+
+          <!-- Subtle Web pattern on mask -->
+          <path d="M80,116 L80,180" stroke="#7f1d1d" stroke-width="1.2" opacity="0.75" />
+          <path d="M54,148 L106,148" stroke="#7f1d1d" stroke-width="1.2" opacity="0.75" />
+          <path d="M62,126 Q80,135 98,126" stroke="#7f1d1d" stroke-width="1" fill="none" opacity="0.75" />
+          <path d="M58,165 Q80,158 102,165" stroke="#7f1d1d" stroke-width="1" fill="none" opacity="0.75" />
+
+          <!-- Expressive Spider-Man Eyes (Inverted position) -->
+          <!-- Left Eye Contour & Fill -->
+          <path id="spideyEyeLeft" d="M60,138 Q67,148 76,142 Q72,130 60,138 Z" fill="#ffffff" stroke="#09090b"
+            stroke-width="3" />
+
+          <!-- Right Eye Contour & Fill -->
+          <path id="spideyEyeRight" d="M100,138 Q93,148 84,142 Q88,130 100,138 Z" fill="#ffffff" stroke="#09090b"
+            stroke-width="3" />
+        </g>
+      </svg>
+
+    </div>
+  </div>
+
+  <!-- Single Screen Container -->
+  <div class="app-wrapper">
+
+    <!-- Top Action Bar -->
+    <header class="header-bar">
+      <div class="header-brand">
+        <span class="cyber-bracket">[</span>
+        <span class="brand-name">HEYPAB</span>
+        <span class="cyber-bracket">]</span>
+      </div>
+
+      <div class="header-controls">
+        <!-- Live Status Pill -->
+        <button id="liveStatusBtn" class="live-status-pill" type="button"
+          title="Klik untuk simulasi status Live / Offline">
+          <span class="status-radar"></span>
+          <span id="liveStatusLabel">LIVE SEKARANG</span>
+        </button>
+
+        <!-- Sound Toggle -->
+        <button id="soundToggleBtn" class="utility-btn" aria-label="Toggle efek audio gaming" title="Toggle audio">
+          <svg viewBox="0 0 24 24">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button id="themeToggleBtn" class="utility-btn" aria-label="Toggle tema tampilan" title="Toggle tema">
+          <svg viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Streamer Hub Content -->
+    <main class="hub-main">
+
+      <!-- Streamer Identity Block -->
+      <section class="streamer-hero">
+        <div class="avatar-container">
+          <div class="avatar-ring-outer"></div>
+          <div class="avatar-ring-pulse"></div>
+
+          <!-- Avatar Photo from assets/ with automatic SVG fallback -->
+          <div class="avatar-core">
+            <img id="profileImage" src="assets/profile.png" alt="Foto Profil HeyPab" class="avatar-photo"
+              onerror="this.onerror=null; this.src='assets/profile.svg';">
+          </div>
+
+          <div id="avatarDot" class="avatar-live-dot" title="Status Online"></div>
+        </div>
+
+        <div class="hero-titles">
+          <div class="gamer-title-wrap">
+            <h1 class="gamer-name">HEYPAB</h1>
+            <svg class="verified-badge" viewBox="0 0 24 24" aria-label="Terverifikasi">
+              <path
+                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+            </svg>
+          </div>
+          <p class="gamer-tagline">Streamer magang</p>
+          <div class="stream-schedule-badge">Siaran Setiap Hari Pukul 20:00 WIB</div>
+        </div>
+      </section>
+
+      <!-- FOCAL PRIMARY FEATURE: SAWERIA DIRECT ACTION BUTTON -->
+      <section class="saweria-feature-hub" aria-label="Akses Saweria">
+        <div class="saweria-glow-box">
+          <div class="saweria-action-card">
+
+            <div class="saweria-head-info">
+              <!-- Saweria Logo from assets/ with automatic SVG fallback -->
+              <div class="saweria-icon-box">
+                <img id="saweriaLogoImage" src="assets/saweria-logo.png" alt="Logo Saweria" class="saweria-logo-img"
+                  onerror="this.onerror=null; this.src='assets/saweria-logo.png';">
+              </div>
+              <div class="saweria-meta">
+                <span class="badge-accent">SAWERIA GATEWAY</span>
+                <p class="saweria-desc">Dukung siaran langsung: Pesan TTS, Media Share, dan Alert Layar</p>
+              </div>
+            </div>
+
+            <!-- Giant Gaming Saweria Direct Button -->
+            <a id="btnSaweriaMain" href="https://saweria.co/heypablo" target="_blank" rel="noopener noreferrer"
+              class="btn-gaming-saweria" aria-label="Klik untuk masuk ke halaman Saweria HeyPab">
+              <span class="btn-scanline"></span>
+              <span class="btn-flare"></span>
+              <div class="btn-content">
+                <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                </svg>
+                <span class="btn-label">MASUK SAWERIA SEKARANG</span>
+                <svg class="btn-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </div>
+            </a>
+
+            <!-- Quick Action Bar -->
+            <div class="saweria-quick-tools-single">
+              <button id="btnCopyLink" type="button" class="tool-btn-full" title="Salin link Saweria ke clipboard">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span>Salin Tautan Saweria (heypablo)</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- UPCOMING CHANNELS SECTION -->
+      <section class="upcoming-hub" aria-label="Kanal Komunitas Lainnya">
+        <div class="upcoming-title-bar">
+          <span class="upcoming-label">KANAL KOMUNITAS LAIN</span>
+          <span class="roadmap-tag">SEGERA HADIR</span>
+        </div>
+
+        <div class="channel-buttons-grid">
+
+          <!-- YouTube Button -->
+          <button type="button" class="channel-action-card" data-channel="YouTube" data-handle="@HeyPabGaming">
+            <div class="card-glow-edge"></div>
+            <div class="channel-main-info">
+              <div class="channel-icon-wrap yt" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                </svg>
+              </div>
+              <div class="channel-text">
+                <span class="ch-name">YouTube</span>
+                <span class="ch-desc">Live Stream & VOD</span>
+              </div>
+            </div>
+            <span class="ch-badge">Segera</span>
+          </button>
+
+          <!-- WhatsApp Button -->
+          <button type="button" class="channel-action-card" data-channel="WhatsApp" data-handle="Komunitas HeyPab">
+            <div class="card-glow-edge"></div>
+            <div class="channel-main-info">
+              <div class="channel-icon-wrap wa" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zm5.78 14.04c-.24.68-1.39 1.3-1.92 1.38-.5.08-1.14.12-3.69-.94-2.88-1.2-4.73-4.14-4.87-4.33-.14-.19-1.17-1.56-1.17-2.98 0-1.42.74-2.12 1.01-2.41.27-.29.6-.36.8-.36.2 0 .4 0 .58.01.19.01.44-.07.69.52.26.62.88 2.15.96 2.31.08.16.13.35.03.55-.1.2-.15.33-.3.51-.15.18-.32.4-.46.54-.15.15-.31.32-.13.63.18.31.8 1.32 1.72 2.14 1.18 1.05 2.18 1.38 2.49 1.53.31.15.49.13.67-.08.18-.21.78-.91.99-1.22.21-.31.42-.26.71-.15.29.11 1.83.86 2.14 1.02.31.16.52.24.6.37.08.13.08.77-.16 1.45z" />
+                </svg>
+              </div>
+              <div class="channel-text">
+                <span class="ch-name">WhatsApp</span>
+                <span class="ch-desc">Grup Mabar</span>
+              </div>
+            </div>
+            <span class="ch-badge">Segera</span>
+          </button>
+
+          <!-- Discord Button -->
+          <button type="button" class="channel-action-card" data-channel="Discord" data-handle="Server HeyPab">
+            <div class="card-glow-edge"></div>
+            <div class="channel-main-info">
+              <div class="channel-icon-wrap ds" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028c.462-.63.874-1.295 1.226-1.994.021-.041.001-.09-.041-.106a13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.929 1.793 8.18 1.793 12.061 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.893.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.028zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z" />
+                </svg>
+              </div>
+              <div class="channel-text">
+                <span class="ch-name">Discord</span>
+                <span class="ch-desc">Voice & Obrolan</span>
+              </div>
+            </div>
+            <span class="ch-badge">Segera</span>
+          </button>
+
+          <!-- TikTok Button -->
+          <button type="button" class="channel-action-card" data-channel="TikTok" data-handle="@heypab.clips">
+            <div class="card-glow-edge"></div>
+            <div class="channel-main-info">
+              <div class="channel-icon-wrap tt" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.24 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z" />
+                </svg>
+              </div>
+              <div class="channel-text">
+                <span class="ch-name">TikTok</span>
+                <span class="ch-desc">Highlight & Klip</span>
+              </div>
+            </div>
+            <span class="ch-badge">Segera</span>
+          </button>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Compact Footer -->
+    <footer class="hub-footer">
+      <div class="footer-left">
+        <span>&copy; 2026 HeyPab Streamer Hub.</span>
+      </div>
+      <div class="footer-shortcuts">
+        <span><kbd>T</kbd> Tema</span>
+        <span><kbd>M</kbd> Audio</span>
+        <span><kbd>S</kbd> Spidey</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+
+</html>
