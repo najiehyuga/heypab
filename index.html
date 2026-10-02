@@ -30,81 +30,83 @@
 
   <!-- INTERACTIVE SPIDER-MAN HANGING OVERLAY -->
   <div id="spidermanOverlay" class="spiderman-overlay" aria-label="Spider-Man Interaktif">
-    <div id="webRope" class="web-rope"></div>
-    <div id="spideyHanger" class="spidey-hanger" role="button" tabindex="0" title="Klik atau tarik Spider-Man!">
+    <div id="spideyPendulum" class="spidey-pendulum">
+      <div id="webRope" class="web-rope"></div>
+      <div id="spideyHanger" class="spidey-hanger" role="button" tabindex="0" title="Klik atau tarik Spider-Man!">
 
-      <!-- Comic Speech Bubble -->
-      <div id="spideyBubble" class="spidey-bubble hidden">
-        <span id="spideyBubbleText">THWIP! Gas Saweria!</span>
-        <div class="bubble-arrow"></div>
-      </div>
+        <!-- Comic Speech Bubble -->
+        <div id="spideyBubble" class="spidey-bubble hidden">
+          <span id="spideyBubbleText">THWIP! Gas Saweria!</span>
+          <div class="bubble-arrow"></div>
+        </div>
 
-      <!-- High-Quality Spider-Man Inverted Hanging SVG -->
-      <svg id="spideySvg" class="spidey-svg" viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <filter id="spideyShadow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
-          </filter>
-        </defs>
+        <!-- High-Quality Spider-Man Inverted Hanging SVG -->
+        <svg id="spideySvg" class="spidey-svg" viewBox="0 0 160 210" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="spideyShadow" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#000000" flood-opacity="0.6" />
+            </filter>
+          </defs>
 
-        <g filter="url(#spideyShadow)">
-          <!-- Web Thread in Hands -->
-          <line x1="80" y1="0" x2="80" y2="40" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
-          <line x1="80" y1="0" x2="80" y2="40" stroke="#00f2fe" stroke-width="1.5" opacity="0.8" />
+          <g filter="url(#spideyShadow)">
+            <!-- Web Thread in Hands -->
+            <line x1="80" y1="0" x2="80" y2="40" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+            <line x1="80" y1="0" x2="80" y2="40" stroke="#00f2fe" stroke-width="1.5" opacity="0.8" />
 
-          <!-- Hands gripping the web -->
-          <ellipse cx="73" cy="38" rx="8" ry="6" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
-          <ellipse cx="87" cy="38" rx="8" ry="6" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
+            <!-- Hands gripping the web -->
+            <ellipse cx="73" cy="38" rx="8" ry="6" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
+            <ellipse cx="87" cy="38" rx="8" ry="6" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
 
-          <!-- Forearms (Red with web pattern) -->
-          <path d="M68,40 L60,65 L72,67 L78,41 Z" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
-          <path d="M92,40 L100,65 L88,67 L82,41 Z" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
+            <!-- Forearms (Red with web pattern) -->
+            <path d="M68,40 L60,65 L72,67 L78,41 Z" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
+            <path d="M92,40 L100,65 L88,67 L82,41 Z" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
 
-          <!-- Inverted Legs (Folded in classic acrobatic hang) -->
-          <!-- Left Leg (Blue/Red) -->
-          <path d="M50,70 L30,45 L42,32 L65,58 Z" fill="#1d4ed8" stroke="#1e3a8a" stroke-width="1.5" />
-          <path d="M30,45 L22,25 L34,20 L42,32 Z" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
+            <!-- Inverted Legs (Folded in classic acrobatic hang) -->
+            <!-- Left Leg (Blue/Red) -->
+            <path d="M50,70 L30,45 L42,32 L65,58 Z" fill="#1d4ed8" stroke="#1e3a8a" stroke-width="1.5" />
+            <path d="M30,45 L22,25 L34,20 L42,32 Z" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
 
-          <!-- Right Leg (Blue/Red) -->
-          <path d="M110,70 L130,45 L118,32 L95,58 Z" fill="#1d4ed8" stroke="#1e3a8a" stroke-width="1.5" />
-          <path d="M130,45 L138,25 L126,20 L118,32 Z" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
+            <!-- Right Leg (Blue/Red) -->
+            <path d="M110,70 L130,45 L118,32 L95,58 Z" fill="#1d4ed8" stroke="#1e3a8a" stroke-width="1.5" />
+            <path d="M130,45 L138,25 L126,20 L118,32 Z" fill="#dc2626" stroke="#991b1b" stroke-width="1.5" />
 
-          <!-- Inverted Torso (Hanging downwards) -->
-          <path d="M55,65 Q80,55 105,65 L98,110 Q80,120 62,110 Z" fill="#dc2626" stroke="#991b1b" stroke-width="2" />
-          <!-- Blue Flanks -->
-          <path d="M55,65 L62,110 Q56,90 55,65 Z" fill="#1d4ed8" />
-          <path d="M105,65 L98,110 Q104,90 105,65 Z" fill="#1d4ed8" />
+            <!-- Inverted Torso (Hanging downwards) -->
+            <path d="M55,65 Q80,55 105,65 L98,110 Q80,120 62,110 Z" fill="#dc2626" stroke="#991b1b" stroke-width="2" />
+            <!-- Blue Flanks -->
+            <path d="M55,65 L62,110 Q56,90 55,65 Z" fill="#1d4ed8" />
+            <path d="M105,65 L98,110 Q104,90 105,65 Z" fill="#1d4ed8" />
 
-          <!-- Spider Insignia on Chest -->
-          <g transform="translate(80, 85)">
-            <ellipse cx="0" cy="0" rx="3.5" ry="6" fill="#09090b" />
-            <!-- Spider Legs -->
-            <path d="M-3,-2 Q-8,-6 -13,-4 M-3,0 Q-10,-1 -14,5 M-3,2 Q-10,5 -12,11" stroke="#09090b" stroke-width="1.5"
-              fill="none" />
-            <path d="M3,-2 Q8,-6 13,-4 M3,0 Q10,-1 14,5 M3,2 Q10,5 12,11" stroke="#09090b" stroke-width="1.5"
-              fill="none" />
+            <!-- Spider Insignia on Chest -->
+            <g transform="translate(80, 85)">
+              <ellipse cx="0" cy="0" rx="3.5" ry="6" fill="#09090b" />
+              <!-- Spider Legs -->
+              <path d="M-3,-2 Q-8,-6 -13,-4 M-3,0 Q-10,-1 -14,5 M-3,2 Q-10,5 -12,11" stroke="#09090b" stroke-width="1.5"
+                fill="none" />
+              <path d="M3,-2 Q8,-6 13,-4 M3,0 Q10,-1 14,5 M3,2 Q10,5 12,11" stroke="#09090b" stroke-width="1.5"
+                fill="none" />
+            </g>
+
+            <!-- Inverted Head / Mask -->
+            <ellipse cx="80" cy="148" rx="26" ry="32" fill="#dc2626" stroke="#991b1b" stroke-width="2" />
+
+            <!-- Subtle Web pattern on mask -->
+            <path d="M80,116 L80,180" stroke="#7f1d1d" stroke-width="1.2" opacity="0.75" />
+            <path d="M54,148 L106,148" stroke="#7f1d1d" stroke-width="1.2" opacity="0.75" />
+            <path d="M62,126 Q80,135 98,126" stroke="#7f1d1d" stroke-width="1" fill="none" opacity="0.75" />
+            <path d="M58,165 Q80,158 102,165" stroke="#7f1d1d" stroke-width="1" fill="none" opacity="0.75" />
+
+            <!-- Expressive Spider-Man Eyes (Inverted position) -->
+            <!-- Left Eye Contour & Fill -->
+            <path id="spideyEyeLeft" d="M60,138 Q67,148 76,142 Q72,130 60,138 Z" fill="#ffffff" stroke="#09090b"
+              stroke-width="3" />
+
+            <!-- Right Eye Contour & Fill -->
+            <path id="spideyEyeRight" d="M100,138 Q93,148 84,142 Q88,130 100,138 Z" fill="#ffffff" stroke="#09090b"
+              stroke-width="3" />
           </g>
+        </svg>
 
-          <!-- Inverted Head / Mask -->
-          <ellipse cx="80" cy="148" rx="26" ry="32" fill="#dc2626" stroke="#991b1b" stroke-width="2" />
-
-          <!-- Subtle Web pattern on mask -->
-          <path d="M80,116 L80,180" stroke="#7f1d1d" stroke-width="1.2" opacity="0.75" />
-          <path d="M54,148 L106,148" stroke="#7f1d1d" stroke-width="1.2" opacity="0.75" />
-          <path d="M62,126 Q80,135 98,126" stroke="#7f1d1d" stroke-width="1" fill="none" opacity="0.75" />
-          <path d="M58,165 Q80,158 102,165" stroke="#7f1d1d" stroke-width="1" fill="none" opacity="0.75" />
-
-          <!-- Expressive Spider-Man Eyes (Inverted position) -->
-          <!-- Left Eye Contour & Fill -->
-          <path id="spideyEyeLeft" d="M60,138 Q67,148 76,142 Q72,130 60,138 Z" fill="#ffffff" stroke="#09090b"
-            stroke-width="3" />
-
-          <!-- Right Eye Contour & Fill -->
-          <path id="spideyEyeRight" d="M100,138 Q93,148 84,142 Q88,130 100,138 Z" fill="#ffffff" stroke="#09090b"
-            stroke-width="3" />
-        </g>
-      </svg>
-
+      </div>
     </div>
   </div>
 
@@ -122,8 +124,9 @@
       <div class="header-controls">
         <!-- Live Status Pill -->
         <button id="liveStatusBtn" class="live-status-pill" type="button"
-          title="Klik untuk simulasi status Live / Offline">
-          <span class="status-radar"></span>
+          aria-label="Status: HeyPab sedang LIVE sekarang"
+          title="Status: HeyPab sedang LIVE sekarang">
+          <span class="status-radar" aria-hidden="true"></span>
           <span id="liveStatusLabel">LIVE SEKARANG</span>
         </button>
 
@@ -185,9 +188,6 @@
               <span>KLIK GANTI GAYA</span>
             </span>
           </button>
-
-          <!-- Live Status Indicator -->
-          <div id="avatarDot" class="avatar-live-dot" title="Status Online"></div>
         </div>
 
         <div class="hero-titles">

@@ -25,4 +25,7 @@
 - **Why interactive Spider-Man overlay?** Explicitly requested by the user to bring playful, interactive life to the screen without obstructing the primary Saweria CTA.
 - **Why direct Saweria button only?** Streamlines the user flow so visitors enter the Saweria page immediately in a single click to `https://saweria.co/heypablo`.
 - **Why audio feedback?** Synthesizer web-shooter click and UI sounds provide tactile feedback.
+- **Why keep live status always active?** Accurately reflects HeyPab's active streaming hub without confusing visitors by simulating an offline state on click.
+- **Why remove green dot from profile logo?** Eliminates visual clutter over the custom character illustration, preserving clean mascot silhouette.
+- **Why pendulum swing for Spider-Man web rope and body?** Simulates genuine pendulum mechanics where the anchor, line, and suspended character swing as a unified assembly to the left and right, enhancing dynamic immersion (MOTION: 3).
 - **Why no em dashes?** Strict R-02 compliance; all text utilizes commas, colons, or parentheses.

@@ -148,21 +148,18 @@
     }
   }
 
-  // Live Status Simulation
-  function applyLiveState(isLive) {
-    state.isLive = isLive;
+  // Live Status Indicator (Stream is always Active / LIVE)
+  function applyLiveState() {
+    state.isLive = true;
     const pill = document.getElementById('liveStatusBtn');
     const label = document.getElementById('liveStatusLabel');
-    const dot = document.getElementById('avatarDot');
 
-    if (isLive) {
-      if (pill) pill.classList.remove('offline');
-      if (label) label.textContent = 'LIVE SEKARANG';
-      if (dot) dot.classList.remove('offline');
-    } else {
-      if (pill) pill.classList.add('offline');
-      if (label) label.textContent = 'OFFLINE';
-      if (dot) dot.classList.add('offline');
+    if (pill) {
+      pill.classList.remove('offline');
+      pill.setAttribute('title', 'Status: HeyPab sedang LIVE sekarang');
+    }
+    if (label) {
+      label.textContent = 'LIVE SEKARANG';
     }
   }
 
@@ -326,7 +323,9 @@
   // SPIDER-MAN INTERACTIVE OVERLAY CONTROLLER
   // ==========================================================================
   function initSpiderman() {
+    const pendulum = document.getElementById('spideyPendulum');
     const hanger = document.getElementById('spideyHanger');
+    const spideySvg = document.getElementById('spideySvg');
     const bubble = document.getElementById('spideyBubble');
     const bubbleText = document.getElementById('spideyBubbleText');
     const rope = document.getElementById('webRope');
@@ -352,18 +351,19 @@
       }, 3400);
     }
 
-    // Click on Spider-Man
+    // Click on Spider-Man (triggers speech & acrobatic flip)
     hanger.addEventListener('click', () => {
       playUiSound('thwip');
       triggerSpideySpeech();
 
-      // Trigger acrobatic flip
-      hanger.classList.remove('spidey-flip');
-      void hanger.offsetWidth; // Force reflow
-      hanger.classList.add('spidey-flip');
+      // Trigger acrobatic flip on the character SVG
+      const flipTarget = spideySvg || hanger;
+      flipTarget.classList.remove('spidey-flip');
+      void flipTarget.offsetWidth; // Force reflow
+      flipTarget.classList.add('spidey-flip');
 
       setTimeout(() => {
-        hanger.classList.remove('spidey-flip');
+        flipTarget.classList.remove('spidey-flip');
       }, 850);
     });
 
@@ -372,30 +372,32 @@
       playUiSound('hover');
     });
 
-    // Interactive Drag and Pull Web String
+    // Interactive Drag and Pull Web String with Pendulum Control
     let isDragging = false;
     let startY = 0;
     const baseRopeHeight = window.innerWidth <= 480 ? 40 : 60;
     let currentRopeHeight = baseRopeHeight;
 
-    hanger.addEventListener('mousedown', (e) => {
+    function startDrag(clientY) {
       isDragging = true;
-      startY = e.clientY;
+      startY = clientY;
+      if (pendulum) pendulum.style.animationPlayState = 'paused';
       hanger.style.animationPlayState = 'paused';
-    });
+    }
 
-    window.addEventListener('mousemove', (e) => {
+    function doDrag(clientY) {
       if (!isDragging) return;
-      const deltaY = e.clientY - startY;
+      const deltaY = clientY - startY;
       if (deltaY > 0 && deltaY < 180) {
         currentRopeHeight = baseRopeHeight + deltaY;
         rope.style.height = `${currentRopeHeight}px`;
       }
-    });
+    }
 
-    window.addEventListener('mouseup', () => {
+    function endDrag() {
       if (!isDragging) return;
       isDragging = false;
+      if (pendulum) pendulum.style.animationPlayState = 'running';
       hanger.style.animationPlayState = 'running';
 
       // Snap back with elastic bounce
@@ -407,7 +409,28 @@
       setTimeout(() => {
         rope.style.transition = 'height 0.1s ease-out';
       }, 400);
-    });
+    }
+
+    // Mouse drag events
+    hanger.addEventListener('mousedown', (e) => startDrag(e.clientY));
+    window.addEventListener('mousemove', (e) => doDrag(e.clientY));
+    window.addEventListener('mouseup', endDrag);
+
+    // Touch drag events for mobile
+    hanger.addEventListener('touchstart', (e) => {
+      if (e.touches && e.touches[0]) {
+        startDrag(e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchmove', (e) => {
+      if (isDragging && e.touches && e.touches[0]) {
+        doDrag(e.touches[0].clientY);
+      }
+    }, { passive: true });
+
+    window.addEventListener('touchend', endDrag);
+    window.addEventListener('touchcancel', endDrag);
 
     // Keyboard trigger (S)
     document.addEventListener('keydown', (e) => {
@@ -415,8 +438,9 @@
       if (e.key === 's' || e.key === 'S') {
         playUiSound('thwip');
         triggerSpideySpeech('THWIP! Spidey siap beraksi!');
-        hanger.classList.add('spidey-flip');
-        setTimeout(() => hanger.classList.remove('spidey-flip'), 850);
+        const flipTarget = spideySvg || hanger;
+        flipTarget.classList.add('spidey-flip');
+        setTimeout(() => flipTarget.classList.remove('spidey-flip'), 850);
       }
     });
   }
@@ -549,13 +573,12 @@
       });
     }
 
-    // 4. Live Status Toggle Button
+    // 4. Live Status Pill (Informative feedback, keeps status Live)
     const liveStatusBtn = document.getElementById('liveStatusBtn');
     if (liveStatusBtn) {
       liveStatusBtn.addEventListener('click', () => {
-        applyLiveState(!state.isLive);
         playUiSound('click');
-        showToast(state.isLive ? 'Status siaran diubah ke: LIVE' : 'Status siaran diubah ke: OFFLINE');
+        showToast('HeyPab saat ini sedang LIVE! Siap ramaikan live stream.', 'success');
       });
     }
 
