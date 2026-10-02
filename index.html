@@ -157,16 +157,36 @@
 
       <!-- Streamer Identity Block -->
       <section class="streamer-hero">
-        <div class="avatar-container">
-          <div class="avatar-ring-outer"></div>
-          <div class="avatar-ring-pulse"></div>
+        <!-- Transparent Interactive Character Logo Avatar (No round borders, transparent PNG) -->
+        <div class="profile-logo-container">
+          <!-- Interactive Logo Switcher Button -->
+          <button id="profileLogoBtn" type="button" class="profile-logo-btn"
+            aria-label="Logo HeyPab interaktif: klik untuk ganti gaya avatar"
+            title="Klik untuk berganti gaya avatar HeyPab!">
 
-          <!-- Avatar Photo from assets/ with automatic SVG fallback -->
-          <div class="avatar-core">
-            <img id="profileImage" src="assets/profile.png" alt="Foto Profil HeyPab" class="avatar-photo"
-              onerror="this.onerror=null; this.src='assets/profile.svg';">
-          </div>
+            <!-- Comic Reaction Badge on Click -->
+            <div id="logoReactionBadge" class="logo-reaction-badge hidden" aria-hidden="true">
+              <span id="logoReactionText">HEYPAB!</span>
+            </div>
 
+            <!-- Cyber Energy Aura Burst Effect on Click -->
+            <div id="logoAuraBurst" class="logo-aura-burst" aria-hidden="true"></div>
+
+            <!-- Transparent PNG Image (Strictly borderless, preserving natural alpha transparency) -->
+            <img id="profileImage" src="assets/profileku.png" alt="Logo Maskot HeyPab" class="profile-transparent-logo"
+              data-main="assets/profileku.png" data-alt="assets/profile-alt.png"
+              onerror="this.onerror=null; this.src='assets/profileku.png';">
+
+            <!-- Interactive Click Hint Badge -->
+            <span class="logo-click-hint" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M7 16V4m0 0L3 8m4-4l4 4m6 4v12m0 0l4-4m-4 4l-4-4" />
+              </svg>
+              <span>KLIK GANTI GAYA</span>
+            </span>
+          </button>
+
+          <!-- Live Status Indicator -->
           <div id="avatarDot" class="avatar-live-dot" title="Status Online"></div>
         </div>
 
@@ -329,6 +349,7 @@
         <span><kbd>T</kbd> Tema</span>
         <span><kbd>M</kbd> Audio</span>
         <span><kbd>S</kbd> Spidey</span>
+        <span><kbd>L</kbd> Avatar</span>
       </div>
     </footer>
 

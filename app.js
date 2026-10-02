@@ -72,6 +72,15 @@
         gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
         osc.start(now);
         osc.stop(now + 0.12);
+      } else if (type === 'powerup') {
+        // High-energy sci-fi chirp/power-up for logo avatar swap
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(340, now);
+        osc.frequency.exponentialRampToValueAtTime(860, now + 0.12);
+        gain.gain.setValueAtTime(0.12, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+        osc.start(now);
+        osc.stop(now + 0.14);
       }
     } catch (e) {
       // Audio autoplay policy fallback
@@ -412,6 +421,104 @@
     });
   }
 
+  // ==========================================================================
+  // INTERACTIVE TRANSPARENT LOGO CONTROLLER (Switch Image & Tactile Effects)
+  // ==========================================================================
+  function initInteractiveLogo() {
+    const logoBtn = document.getElementById('profileLogoBtn');
+    const profileImg = document.getElementById('profileImage');
+    const auraBurst = document.getElementById('logoAuraBurst');
+    const reactionBadge = document.getElementById('logoReactionBadge');
+    const reactionText = document.getElementById('logoReactionText');
+    if (!logoBtn || !profileImg) return;
+
+    const variants = [
+      {
+        id: 'main',
+        src: profileImg.getAttribute('data-main') || 'assets/profileku.png',
+        alt: 'Logo Maskot HeyPab (Gaya Klasik)',
+        reaction: 'HEYPAB!',
+        toast: 'Gaya avatar diubah ke: HeyPab Klasik'
+      },
+      {
+        id: 'alt',
+        src: profileImg.getAttribute('data-alt') || 'assets/profile-alt.png',
+        alt: 'Logo Maskot HeyPab (Spider-Gamer Mode)',
+        reaction: 'SPIDEY GAMER!',
+        toast: 'Gaya avatar diubah ke: Spider-Gamer Mode'
+      }
+    ];
+
+    // Preload alternate image to guarantee instantaneous swap
+    variants.forEach(v => {
+      const preload = new Image();
+      preload.src = v.src;
+    });
+
+    let currentIndex = 0;
+    let badgeTimer = null;
+
+    function triggerLogoReaction(text) {
+      if (!reactionBadge || !reactionText) return;
+      if (badgeTimer) clearTimeout(badgeTimer);
+
+      reactionText.textContent = text;
+      reactionBadge.classList.remove('hidden');
+
+      badgeTimer = setTimeout(() => {
+        reactionBadge.classList.add('hidden');
+      }, 1400);
+    }
+
+    function switchLogo() {
+      // 1. Tactile sound
+      playUiSound('powerup');
+
+      // 2. Interactive pop & tilt animation
+      logoBtn.classList.remove('anim-pop');
+      void logoBtn.offsetWidth; // Force CSS reflow
+      logoBtn.classList.add('anim-pop');
+
+      // 3. Shockwave aura burst
+      if (auraBurst) {
+        auraBurst.classList.remove('active');
+        void auraBurst.offsetWidth;
+        auraBurst.classList.add('active');
+      }
+
+      // 4. Smooth image swap
+      currentIndex = (currentIndex + 1) % variants.length;
+      const target = variants[currentIndex];
+
+      profileImg.classList.add('is-swapping');
+      setTimeout(() => {
+        profileImg.src = target.src;
+        profileImg.alt = target.alt;
+        profileImg.classList.remove('is-swapping');
+      }, 120);
+
+      // 5. Comic reaction bubble
+      triggerLogoReaction(target.reaction);
+
+      // 6. User feedback toast
+      showToast(target.toast, 'success');
+    }
+
+    // Click & hover events
+    logoBtn.addEventListener('click', switchLogo);
+    logoBtn.addEventListener('mouseenter', () => {
+      playUiSound('hover');
+    });
+
+    // Global keyboard shortcut (L or V)
+    document.addEventListener('keydown', (e) => {
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+      if (e.key === 'l' || e.key === 'L') {
+        switchLogo();
+      }
+    });
+  }
+
   // Initialize Event Listeners
   document.addEventListener('DOMContentLoaded', () => {
     // 1. Initial State
@@ -420,6 +527,7 @@
     applyLiveState(state.isLive);
     initCyberCanvas();
     initSpiderman();
+    initInteractiveLogo();
 
     // 2. Direct Saweria Action Button
     const btnSaweriaMain = document.getElementById('btnSaweriaMain');
